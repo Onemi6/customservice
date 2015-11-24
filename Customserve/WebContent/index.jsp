@@ -4,18 +4,32 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet">
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="//unslider.com/unslider.js"></script>
 <script>
-
 $(function() {
-    $('.banner').unslider();
+    $('.banner').unslider();   
 });
+$(document).ready(function(){
+	
+	  $("#hidebtn").click(function(){
+	  $("#footer").toggle();
+
+	  });
+	  
+	  $("#showbtn").click(function(){
+		  $("#footer").toggle();		
+  
+	  });
+	});
+</script>
+<script>
 
 </script>
 <title>Magicの客服系统主页</title>
 </head>
+
 <body>
 
 
@@ -73,7 +87,7 @@ $(function() {
         
         <li style="float:left">
         
-                <div style="height:400px;margin-left:-18px;width:100%;background-image:url(./miao_4.jpg)">
+                <div style="height:400px;margin-left:-18px;width:100%;margin-top:10px;background-image:url(./miao_4.jpg)">
             <div class="" style="margin-left:-50%">
           
               
@@ -86,5 +100,21 @@ $(function() {
 
 
 </div>
+<!--底部咨询按钮  -->
+<div id="hidefoot">
+<a href="#" id="hidebtn" style="bottom:10px;right:5px;position:fixed">
+<img src="./Buttom_miao.jpg" alt="喵嗷~~~~~" class="img-thumbnail">
+</a>
+</div>
+<!-- 唤出对话框 -->
+<div id="footer" style="display:none">
+<a id="showbtn" href="#" style="bottom:10px;right:325px;position:fixed ">
+<img src="./Buttom_miao.jpg" alt="喵嗷~~~~~" class="img-thumbnail">
+</a>
+<div style="background:#42B2CA;bottom:10px;position:fixed;right:5px;width:325px;height:300px">
+
+</div>
+</div>
+
 </body>
 </html>
