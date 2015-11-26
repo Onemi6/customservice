@@ -24,13 +24,9 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li  ><a href="./index.jsp" style="color:#fff">喵の客服主页<span class="sr-only">Now choose</span></a></li>
-        <li><a href="#" style="color:#fff">喵の客服人员</a></li>
-        <li><a href="#" style="color:#fff">喵の正确食用方法</a></li>
-      </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        <li  ><a href="./index.jsp" style="color:#fff">喵の客服主页<span class="sr-only">Now choose</span></a></li>
         <li class="active"><a href="./login.jsp">喵の登陆</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
