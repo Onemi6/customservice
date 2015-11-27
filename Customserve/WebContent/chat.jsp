@@ -8,7 +8,6 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="./js/Chart/Chart.js"></script>
 <title>喵の窝</title>
 </head>
 
@@ -34,13 +33,13 @@
 </nav>
 </div>
 
-<div class="container-fluid" id="wrapper" style="width:220px;margin-top:-20px;display:block;padding-left:220px;position:relative">
+<div class="container-fluid" id="wrapper" style="width:220px;margin-top:-20px;display:block;padding-left:220px">
 	<div style="margin-left:-220px;display:block;float:left" id="wrapper-sidebar" >
  		<nav  class="navbar navbar-default" style="background:#f8f8f8;border-color:#e7e7e7">
 		 <div id="navbar-default-sidebar-collapse" class="collapse navbar-collapse"  style="width:220px;position:relative;">
 				<ul id="side-bar" class="nav nav-stack">
 				 		<li>
-				 			<a href="./admin.jsp" style="color:#19ADEC">
+				 			<a href="./dashboard.jsp" style="color:#19ADEC">
 				 			  <span class="glyphicon glyphicon-signal"></span>&nbsp;仪表盘
 				 			</a>
 				 		</li>
@@ -63,69 +62,12 @@
 		 	 	 	<li><a href="./admin.jsp">首页</a></li>	
 		 	 	 	<li class="active">仪表盘</li>		 	 	 	
 		 	 	</ol>
-		 	 	
-		 	 	
-<div id="page-content-wrapper" style="overflow:hidden;width:1100px;margin-top:-20px">
+  <div id="page-content-wrapper" style="overflow:hidden">
 	<div class="row">
-	<!-- 中间的数据分析 -->
-		<div class="col-sm-8 col-md-9" style="paddig-bottom:10px;margin-top:20px">
-		<h4 style="color:#19ADEC">客服访问量统计：</h4>
-           <canvas id="Mychart" >
-            
-           </canvas>
-<script>
-
- //图标插件init
-		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-		var lineChartData = {
-			labels : ["旅游","游戏","生活家居"],
-			datasets : [
-				{
-					label: "总访问量",
-					fillColor : "rgba(220,220,220,0.2)",
-					strokeColor : "rgba(220,220,220,1)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(220,220,220,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				},
-				{
-					label: "日访问量",
-					fillColor : "rgba(151,187,205,0.2)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(151,187,205,1)",
-					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-				}
-			]
-
-		}  
-    
-		 //初始化曲线图表插件
-		window.onload = function(){
-			var ctx = document.getElementById("Mychart").getContext("2d");
-			window.myLine = new Chart(ctx).Line(lineChartData, {
-				responsive: true
-			});
-		}
-</script>
-		</div>
-		<!-- 右方简略信息组 -->
-		<div class="columns col-sm-4 col-md-3" style="margin-top:0px">
-			<div class="panel panel-default">
- 				 <div class="panel-heading">
-   					 <h3 class="panel-title" style="color:#19ADEC"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;Chating</h3>
- 				 </div>
- 			 <div class="panel-body">
-  				  <ul>
-  				    <li>喵</li>
-  				    <li>喵</li>
-  				  </ul>  				  
- 			 </div>
-     		</div>
+		<div class="col-sm-8 col-md-9" style="paddig-bottom:10px">
+			
+			<div>
+			</div>
 		</div>
 	</div>
 </div>
