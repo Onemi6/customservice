@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet">
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <title>喵の登陆</title>
 </head>
 <body>
@@ -41,18 +42,29 @@
 
 <div style="margin-left:20%; margin-top:10px" >
 
+<!-- 
 
-  <form class="form-horizontal">
+FORM 
+      前台id说明：
+      input name :单元格名字
+      
+      username：名字
+      
+      password: 密码
+
+
+ -->
+  <form class="form-horizontal" method="post" action="">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">喵~名</label>
     <div class="col-sm-10" style="width:50%">
-      <input type="text" class="form-control" id="username" placeholder="这里写用户名喵~~~~">
+      <input type="text" class="form-control" id="username" placeholder="这里写用户名喵~~~~" name="username">
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">喵~密码</label>
     <div class="col-sm-10" style="width:50%">
-      <input type="password" class="form-control" id="passwords" placeholder="喵~~~我们不会看你的密码的~">
+      <input type="password" class="form-control" id="passwords" placeholder="喵~~~我们不会看你的密码的~" name="password">
     </div>
   </div>
   <br/>

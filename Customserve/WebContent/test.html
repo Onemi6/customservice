@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 
+ This is a demo for using chart-js, 
+ you can visit my site for more demos if you needed :-)
+ 
+ Author: TianJingrong(work_id_tjr@163.com)
+ Article: https://www.yii2demo.com
+ Source: http://www.chartjs.org/ 
+-->
+<!doctype html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="./js/Chart/Chart.js"></script>
+    <head>
+        <title>Line Chart</title>
+        <script src="./Chart.js"></script>
         <style>
             .line-legend {
               list-style: none;
@@ -84,85 +86,30 @@
               opacity: 1;
             }
         </style>
-<title>å–µã®çª</title>
-</head>
+    </head>
+    <body>
+        <div style="width:50%">
+            <div id="line-legend">
+            </div>
+            <div>
+                <canvas id="line-chart" height="450px" width="800px"></canvas>
+            </div>
+        </div>
 
-<body>
-
-<div class="" style="width:100%" >
-<nav class="navbar navbar-default" style="background:#f8f8f8">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header" >
-      <a class="navbar-brand" href="#" style="color:#19ADEC">å–µã®å®¢æœç³»ç»Ÿ</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li ><a href="#" style="color:#19ADEC">å–µã®é…ç½®</a></li>
-        <li class="active" ><a href="#" >å–µã®å®¢æœ</a></li>
-        <li><a href="#" style="color:#19ADEC">å–µ</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-</div>
-
-<div class="container-fluid" id="wrapper" style="width:220px;margin-top:-20px;display:block;padding-left:220px;position:relative">
-	<div style="margin-left:-220px;display:block;float:left" id="wrapper-sidebar" >
- 		<nav  class="navbar navbar-default" style="background:#f8f8f8;border-color:#e7e7e7">
-		 <div id="navbar-default-sidebar-collapse" class="collapse navbar-collapse"  style="width:220px;position:relative;">
-				<ul id="side-bar" class="nav nav-stack">
-				 		<li>
-				 			<a href="./admin.jsp" style="color:#19ADEC">
-				 			  <span class="glyphicon glyphicon-signal"></span>&nbsp;ä»ªè¡¨ç›˜
-				 			</a>
-				 		</li>
-				 		<li>
-				 			<a href="./chat.jsp" style="color:#19ADEC">
-				 			  <span class="glyphicon glyphicon-comment"></span>&nbsp;èŠå¤©ç•Œé¢
-				 			</a>
-				 		</li>
-				 		<li>
-				 			<a href="./config.jsp" style="color:#19ADEC">
-				 			  <span class="glyphicon glyphicon-cog"></span>&nbsp;å¸¸ç”¨è®¾ç½®
-				 			</a>
-				 		</li>
-				</ul>
-		</div>
- 	</nav>
-  </div>
-
-		 	 	<ol class="breadcrumb" style="width:280px">
-		 	 	 	<li><a href="./admin.jsp">é¦–é¡µ</a></li>	
-		 	 	 	<li class="active">ä»ªè¡¨ç›˜</li>		 	 	 	
-		 	 	</ol>
-		 	 	
-		 	 	
-<div id="page-content-wrapper" style="overflow:hidden;width:1100px;margin-top:-20px">
-	<div class="row">
-	<!-- ä¸­é—´çš„æ•°æ®åˆ†æ -->
-		<div class="col-sm-8 col-md-9" style="paddig-bottom:10px;margin-top:20px">
-		<h4 style="color:#19ADEC">å®¢æœè®¿é—®é‡ç»Ÿè®¡ï¼š</h4>
-		<br/>
-           <canvas id="line-chart" >           
-           </canvas>
- <div id="line-legend"></div>
+        <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
         <script>
         /**
-         * åˆ›å»ºchartjså›¾è¡¨
-         *
-         * @param  {string}  chart_canvas_id        ç”»å¸ƒid
-         * @param  {string}  legend_id              å›¾ä¾‹id
-         * @param  {Array}   dataset_config         æ˜¾ç¤ºæ•°æ®
-         * @return {null}                           ç›´æ¥æ˜¾ç¤ºç»“æœ
+         * ´´½¨chartjsÍ¼±í
+         * @param  {string}  chart_canvas_id        »­²¼id
+         * @param  {string}  legend_id              Í¼Àıid
+         * @param  {Array}   dataset_config         ÏÔÊ¾Êı¾İ
+         * @return {null}                           Ö±½ÓÏÔÊ¾½á¹û
          */
         var make_chartjs_graph = function(chart_canvas_id, legend_id, dataset_config) {
           /**
-           * å¤åˆ¶æ•°æ®
-           * @param  {Array} datasets  å¾…å¤åˆ¶çš„æŠ˜çº¿å›¾æ•°æ®åŒ…
-           * @return {Array}           å…‹éš†æ•°æ®åŒ…
+           * ¸´ÖÆÊı¾İ
+           * @param  {Array} datasets  ´ı¸´ÖÆµÄÕÛÏßÍ¼Êı¾İ°ü
+           * @return {Array}           ¿ËÂ¡Êı¾İ°ü
            */
           var get_display_datasets = function(datasets) {
             var final_datasets = new Array();
@@ -215,38 +162,36 @@
             maintainAspectRatio: true,
             //Boolean - whether to make the chart responsive to window resizing
             responsive: true,
-            // è‡ªå®šä¹‰æ•°æ®æç¤ºtooltip  
-            
+            // ×Ô¶¨ÒåÊı¾İÌáÊ¾tooltip
+            multiTooltipTemplate: "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>"
           };
 
-
-         
-          // åˆå§‹åŒ–æŠ˜çº¿å›¾
+          // ³õÊ¼»¯ÕÛÏßÍ¼
           var lineChartCanvas = chart.get(0).getContext("2d");
           var lineChart = new Chart(lineChartCanvas);
           var line_chart_handle = lineChart.Line(lineChartData, lineChartOptions);
 
-          // è‡ªå®šä¹‰å›¾ä¾‹
+          // ×Ô¶¨ÒåÍ¼Àı
           var div_ul = $('<ul class="line-legend"></ul>');
           $.each(y_datasets, function(index, value) {
             var div_li = $('<li class="checkbox-five" ><input name="' + legend_id + '" type="checkbox" value="' + index + '" ><label for="' + legend_id + '" style="background-color:' + value.strokeColor + ';"></label><span>' + value.label + '</span></li>');
             div_ul.append(div_li);
           });
 
-          // å°†å›¾ä¾‹æ”¾ç½®äºæŒ‡å®šä½ç½®
+          // ½«Í¼Àı·ÅÖÃÓÚÖ¸¶¨Î»ÖÃ
           legend.empty();
           legend.append(div_ul);
 
-          // ç»™å›¾ä¾‹ä¸­çš„é€‰æ¡†å¢åŠ äº‹ä»¶å“åº”
-          // è¢«é€‰ä¸­çš„åˆ™æ˜¾ç¤ºå…¶å¯¹åº”æŠ˜çº¿ï¼Œæœªé€‰ä¸­çš„ä¸æ˜¾ç¤º
+          // ¸øÍ¼ÀıÖĞµÄÑ¡¿òÔö¼ÓÊÂ¼şÏìÓ¦
+          // ±»Ñ¡ÖĞµÄÔòÏÔÊ¾Æä¶ÔÓ¦ÕÛÏß£¬Î´Ñ¡ÖĞµÄ²»ÏÔÊ¾
           $('[name = ' + legend_id + ']:checkbox').each(function(key, value) {
-            // è®¾ç½®æ‰€æœ‰çš„checkboxä¸ºé€‰ä¸­
+            // ÉèÖÃËùÓĞµÄcheckboxÎªÑ¡ÖĞ
             $(this).attr('checked', true);
-            // è®¾ç½®checkboxè¢«å–æ¶ˆé€‰æ‹©ä¹‹åï¼Œå°†è¯¥æ›²çº¿æ¶ˆé™¤
+            // ÉèÖÃcheckbox±»È¡ÏûÑ¡ÔñÖ®ºó£¬½«¸ÃÇúÏßÏû³ı
             $(this).click(function() {
               var index = $(this).attr('value');
               if ($(this).is(':checked')) {
-                // æ’å…¥è¢«é€‰ä¸­æŠ˜çº¿ä¸Šçš„ç‚¹
+                // ²åÈë±»Ñ¡ÖĞÕÛÏßÉÏµÄµã
                 $.each(y_datasets[index].data, function(key, value) {
                   line_chart_handle.datasets[index].points.push(new line_chart_handle.PointClass({
                     value : value,
@@ -259,17 +204,17 @@
                   }));
                 });
               } else {
-                  // åˆ é™¤è¢«é€‰ä¸­æŠ˜çº¿ä¸Šçš„ç‚¹
+                  // É¾³ı±»Ñ¡ÖĞÕÛÏßÉÏµÄµã
                 for (var i = line_chart_handle.datasets[index].points.length - 1; i >= 0; i--) {
                   line_chart_handle.datasets[index].points.shift();
                 }
               }
 
-              // æ›´æ–°æŠ˜çº¿
+              // ¸üĞÂÕÛÏß
               line_chart_handle.update();
             });
 
-            // ç‚¹å‡»liæ—¶ä¹Ÿè§†å…¶ä¸ºé€‰ä¸­checkbox
+            // µã»÷liÊ±Ò²ÊÓÆäÎªÑ¡ÖĞcheckbox
             var li = $(this).parent();
             li.click(function() {
               $(this).children('input').get(0).click();
@@ -278,21 +223,21 @@
           });
         };
 
-        // ç”Ÿæˆéšæœºæ•°
+        // Éú³ÉËæ»úÊı
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };
 
-        // æŠ˜çº¿å›¾id
+        // ÕÛÏßÍ¼id
         var chart_canvas_id = 'line-chart';
 
-        // å›¾ä¾‹id
+        // Í¼Àıid
         var legend_id = 'line-legend';
 
-        // Yè½´æ•°æ®
+        // YÖáÊı¾İ
         var default_datasets = [
             {
-                label: "æ—¥è®¿é—®é‡",
+                label: "My First dataset",
                 fillColor : "rgba(220,220,220,0.2)",
                 strokeColor : "rgba(220,220,220,1)",
                 pointColor : "rgba(220,220,220,1)",
@@ -302,7 +247,7 @@
                 data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
             },
             {
-                label: "æ€»è®¿é—®é‡",
+                label: "My Second dataset",
                 fillColor : "rgba(151,187,205,0.2)",
                 strokeColor : "rgba(151,187,205,1)",
                 pointColor : "rgba(151,187,205,1)",
@@ -313,34 +258,15 @@
             }
         ];
 
-        // æ‰“åŒ…æŠ˜çº¿å›¾æ•°æ®
+        // ´ò°üÕÛÏßÍ¼Êı¾İ
         var lineChartData = {
-            labels : ["æ—…æ¸¸","æ¸¸æˆ","å®¶å±…ç”Ÿæ´»"],
+            labels : ["January","February","March","April","May","June","July"],
             datasets : default_datasets
         };
 
-        // ç”Ÿæˆå›¾è¡¨
+        // Éú³ÉÍ¼±í
         make_chartjs_graph(chart_canvas_id, legend_id, lineChartData);
         </script>
-		</div>
-		<!-- å³æ–¹ç®€ç•¥ä¿¡æ¯ç»„ -->
-		<div class="columns col-sm-4 col-md-3" style="margin-top:0px">
-			<div class="panel panel-default">
- 				 <div class="panel-heading">
-   					 <h3 class="panel-title" style="color:#19ADEC"><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;Chating</h3>
- 				 </div>
- 			 <div class="panel-body">
-  				  <ul>
-  				    <li>å–µ</li>
-  				    <li>å–µ</li>
-  				  </ul>  				  
- 			 </div>
-     		</div>
-		</div>
-	</div>
-</div>
-</div>
-
-
-</body>
+    </body>
 </html>
+
