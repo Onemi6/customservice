@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet">
+  <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <title>喵の登陆</title>
 </head>
 <body>
@@ -41,18 +42,29 @@
 
 <div style="margin-left:20%; margin-top:10px" >
 
+<!-- 
 
-  <form class="form-horizontal" name="user_info">
+FORM 
+      前台id说明：
+      input name :单元格名字
+      
+      username：名字
+      
+      password: 密码
+
+
+ -->
+  <form class="form-horizontal" method="post" action="">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">喵~名</label>
     <div class="col-sm-10" style="width:50%">
-      <input type="text" class="form-control" id="username" placeholder="这里写用户名喵~~~~" name="user_name">
+      <input type="text" class="form-control" id="username" placeholder="这里写用户名喵~~~~" name="username">
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">喵~密码</label>
     <div class="col-sm-10" style="width:50%">
-      <input type="password" class="form-control" id="passwords" placeholder="喵~~~我们不会看你的密码的~" name="user_password">
+      <input type="password" class="form-control" id="passwords" placeholder="喵~~~我们不会看你的密码的~" name="password">
     </div>
   </div>
   <br/>
@@ -61,7 +73,7 @@
 <div>
   <div class="form-group" style="margin-left:8%">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" style="margin-right:5%" onclick="login_check()">Zzzz登陆zzzZ</button>
+      <button type="submit" class="btn btn-primary" style="margin-right:5%">Zzzz登陆zzzZ</button>
       <a type="button" class="btn btn-primary" href="./regist.jsp">Oooo注册oooO</a>
     </div>
   </div>  
@@ -70,16 +82,5 @@
     
 
 </div>
-<script type="text/javascript">
-	function login_check(){
-		if(document.user_info.user_name.value==""){
-			alert("用户名不能为空");
-		}
-		if(document.user_info.user_password.value==""){
-			alert("密码不能为空");
-		}
-		window.location.href="Login_check.jsp?txtname="+document.user_info.user_name.value+"&txtpassword="+document.user_info.user_password.value;
-	}
-</script>
 </body>
 </html>
