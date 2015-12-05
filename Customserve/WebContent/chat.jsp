@@ -9,6 +9,13 @@
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="./js/Chart/Chart.js"></script>
+<style>
+  .line{
+     background:#f8f8f8;
+     font:18px;
+     width:100%;
+  }
+</style>
 <title>喵の窝</title>
 </head>
 
@@ -69,26 +76,67 @@
 	<div class="row">
 	<!-- 中间的数据分析 -->
 		<div class="col-sm-8 col-md-9" style="paddig-bottom:10px;margin-top:20px">
+		<div class="panel panel-default" >
+		<div class="panel-heading">
 		<h4 style="color:#19ADEC">当前会话：</h4>
+		</div>
 		<br/>
-		<ul>
-		  <li>111111</li>
-		  <li>222222</li>
-		</ul>
+		<div class="panel-body">
+		
+		<!-- JSP code Strat From Here -->
+		   <!-- 循环查表     找出所有未答复对话 -->
+		<div class="line " id="con1">
+		  <p><span class="glyphicon glyphicon-user" style="color:#19ADEC"></span>&nbsp;&nbsp;Customer name<span class="badge" style="margin-left:60%;color:red;background:#fff;display:none">new</span>
+		  </p>
+		  <button class="btn btn-default" style="margin-left:85%;margin-top:-28px" id="callonchat" ><span class="glyphicon glyphicon-earphone"></span></button>
+		  <button class="btn btn-default" style="margin-left:95%;margin-top:-28px" id="removechat" ><span class="glyphicon glyphicon-remove"></span></button>
+
+		</div>
+		<!--  -->
+		</div>
+		</div>
 		<br/>
 		<br/>
-		<h4 style="color:#19ADEC">待回答:</h4>
-		<ul>
-		  <li>111111</li>
-		  <li>222222</li>
-		</ul>
+		<div class="panel panel-default" >
+		<div class="panel-heading">
+		<h4 style="color:#19ADEC">待回答：</h4>
+		</div>
+		<br/>
+		<div class="panel-body">
+		
+		<!-- JSP code Strat From Here -->
+		   <!-- 循环查表     找出所有未答复对话 -->
+		<div class="line " id="con1">
+		  <p><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Customer name<span class="badge" style="margin-left:60%;color:red;background:#fff;display:none">new</span>
+		  </p>
+		  <button class="btn btn-default" style="margin-left:85%;margin-top:-28px" id="callonchat" ><span class="glyphicon glyphicon-earphone"></span></button>
+		  <button class="btn btn-default" style="margin-left:95%;margin-top:-28px" id="removechat" ><span class="glyphicon glyphicon-remove"></span></button>
+
+		</div>
+		<!--  -->
+		</div>
+		</div>
 		<br/>
 		<br/>
-		<h4 style="color:#19ADEC">已结束:</h4>
-		<ul>
-		  <li>111111</li>
-		  <li>222222</li>
-		</ul>
+		<div class="panel panel-default" >
+		<div class="panel-heading">
+		<h4 style="color:#19ADEC">已结束：</h4>
+		</div>
+		<br/>
+		<div class="panel-body">
+		
+		<!-- JSP code Strat From Here -->
+		   <!-- 循环查表     找出所有未答复对话 -->
+		<div class="line " id="con1">
+		  <p><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Customer name<span class="badge" style="margin-left:60%;color:red;background:#fff;display:none">new</span>
+		  </p>
+
+		  <button class="btn btn-default" style="margin-left:95%;margin-top:-28px" id="removechat" ><span class="glyphicon glyphicon-remove"></span></button>
+
+		</div>
+		<!--  -->
+		</div>
+		</div>
 	    </div>
 		<!-- 右方简略信息组 -->
 		<div class="columns col-sm-4 col-md-3" style="margin-top:0px">

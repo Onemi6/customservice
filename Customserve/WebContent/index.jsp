@@ -58,7 +58,13 @@ $(document).ready(function(){
 
       <ul class="nav navbar-nav navbar-right">
         <li class="active" ><a href="#" >喵の客服主页<span class="sr-only">Now choose</span></a></li>
-        <li><a href="./login.jsp" style="color:#fff">喵の登陆</a></li>
+        <%if(request.getParameter("username")!=null){ 
+        	  out.print("<li><a href='#' style='color:#fff'>"+"Welcome,"+request.getParameter("username")+"</a></li>");
+        }
+        else{
+        out.print("<li><a href='./login.jsp' style='color:#fff'>喵の登陆</a></li>");
+        }  
+        %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -140,26 +146,12 @@ $(document).ready(function(){
         </div>
       </div>
       <div class="modal-footer">
-              <button type="button" class="btn btn-default" id="miao_b">喵!</button>
+              <button type="button" class="btn btn-default">喵!</button>
       </div>
     </div>
   </div>
 </div>
 
-
-<script>
-
-$("#miao_b").click(function(){
-
-	var inp=$("#msginput").val()
- 
-    $("#msg-response").append("<div style='background:#fff;color:#36D9D6;font-style:italic;margin-right:5px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i class='glyphicon glyphicon-user'>你:</i></span></div>")
- //   $("#msg-response").append("<p style=''></p>")
-    $("#msg-response").append(inp)
-
-
-});
-</script>
 
 
 <!-- 唤出对话框 -->

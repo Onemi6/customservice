@@ -20,10 +20,10 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `cs_user`;
 CREATE TABLE `cs_user` (
-  `cid` varchar(30) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户表',
+  `id`   int not null auto_increment ,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `phonenum` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`cid`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

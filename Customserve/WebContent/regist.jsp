@@ -51,55 +51,54 @@ FORM
       name：名字
       
       pwd:密码
-
       repwd:重新输入密码
       
       phone:手机
       
       zone:擅长领域
  -->
-<form class="form-horizontal" style="margin-top:-400px;margin-left:55%" method="post" action="">
+<form class="form-horizontal" style="margin-top:-400px;margin-left:55%" method="post" action="./Add_user.jsp" name="regist">
  <h1 style="margin-left:20%;margin-top:-100px">喵~~~~~</h1>
  <br/>
  <br/>
   <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">新喵の名字</label>
+    <label for="name" class="col-sm-2 control-label">新喵の名字</label>
     <div class="col-sm-7">
-      <input type="email" class="form-control" id="name" name="name" placeholder="新喵也要有个不是很随便的名字呐~">
+      <input type="text" class="form-control" id="name" name="txtname" placeholder="新喵也要有个不是很随便的名字呐~">
     </div>
   </div>
   <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">新喵の密钥</label>
+    <label for="firstkey" class="col-sm-2 control-label">新喵の密钥</label>
     <div class="col-sm-7">
-      <input type="password" class="form-control" id="psw" name="pwd"  placeholder="喵的智商肯定会想出很复杂的密码的！">
+      <input type="password" class="form-control" id="psw" name="txtpassword"  placeholder="喵的智商肯定会想出很复杂的密码的！">
     </div>
   </div>
     <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">新喵の二钥</label>
+    <label for="secondkey" class="col-sm-2 control-label">新喵の二钥</label>
     <div class="col-sm-7">
-      <input type="password" class="form-control" id="repsw" name="repwd" placeholder="喵的智商肯定会想出很复杂的密码的！">
+      <input type="password" class="form-control" id="repsw" name="retxtpassword" placeholder="喵的智商肯定会想出很复杂的密码的！">
     </div>
   </div>
   
       <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">新喵の爪机</label>
+    <label for="phonenum" class="col-sm-2 control-label">新喵の爪机</label>
     <div class="col-sm-7">
-      <input type="password" class="form-control" id="phone" name="phone" placeholder="喵们要怎么联系你呢~~~">
+      <input type="text" class="form-control" id="phone" name="txtphonenumber" placeholder="喵们要怎么联系你呢~~~">
     </div>
   </div>
     <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">新喵の信箱</label>
+    <label for="email" class="col-sm-2 control-label">新喵の信箱</label>
     <div class="col-sm-7">
-      <input type="email" class="form-control" id="mail" name="mail" placeholder="俺们的信息要送到哪个信箱呢~~~">
+      <input type="email" class="form-control" id="mail" name="txtemail" placeholder="俺们的信息要送到哪个信箱呢~~~">
     </div>
   </div>
    <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">新喵の领域</label>
+    <label for="zone" class="col-sm-2 control-label">新喵の领域</label>
     <div class="col-sm-7">
-<select class="form-control" id="zone" name="zone">
-  <option>旅游</option>
-  <option>游戏</option>
-  <option>生活家居</option>
+<select class="form-control" id="zone" name="txtfond">
+								<option value="travel">旅游</option>
+								<option value="game">游戏</option>
+								<option value="living">生活家居</option>
 </select>
     </div>
   </div>
@@ -107,7 +106,7 @@ FORM
 <br/>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">成为新喵！</button>
+      <input class="btn btn-primary" type="submit" value="成为新喵~" />
     </div>
   </div>
 </form>
@@ -129,7 +128,6 @@ $("#name").blur(function(){
     	  $("#name").css("border-color","#23EC27");
       }      
 });
-
 $("#psw").blur(function(){
 if(!$("#psw").val()){
 		$("#psw").css("border-color","#EF6464");
@@ -139,9 +137,7 @@ else{
 		$("#psw").css("border-color","#23EC27");
 }
 });
-
 $("#repsw").blur(function(){
-
 	if($("#psw").val()!=$("#repsw").val()){
 		$("#repsw").css("border-color","#EF6464");
 		$("#repsw").attr("placeholder","虽然喵瞎了,但是泥的密码和上次填的不一样！");
@@ -154,7 +150,6 @@ $("#repsw").blur(function(){
 		$("#repsw").css("border-color","#23EC27");
 	}
 	});
-
 $("#phone").blur(function(){
 	if(!$("#phone").val()){
 			$("#phone").css("border-color","#EF6464");
@@ -164,7 +159,6 @@ $("#phone").blur(function(){
 			$("#phone").css("border-color","#23EC27");
 	}
 	});
-
 $("#mail").blur(function(){
 	if(!$("#mail").val()){
 			$("#mail").css("border-color","#EF6464");
@@ -174,8 +168,6 @@ $("#mail").blur(function(){
 			$("#mail").css("border-color","#23EC27");
 	}
 	});
-
-
 $("#name").focus(function(){
     $("img").attr("src","./miao.png");	
     if($("#name").val()){
@@ -196,6 +188,7 @@ $("#mail").focus(function(){
     $("img").attr("src","./d_m.png");
 });
 /*             judgement  END            */
+
 </script>
 
 
