@@ -1,4 +1,4 @@
-<%@page import="cn.jsy.DBConn"%>
+<%@page import="cn.jsy.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
  <%@ page language="java" import="java.sql.*,java.io.*,java.util.*"%>

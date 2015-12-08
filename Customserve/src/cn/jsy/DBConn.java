@@ -1,10 +1,14 @@
 package cn.jsy;
 
-//数据库连接
 
 import java.lang.ClassNotFoundException;
 import java.sql.*;
 
+/**
+ * Function: 数据库连接 类
+ * @author Song
+ *@return SQL Connection
+ */
 public class DBConn {
 
 	public static Connection GetConnection() {

@@ -1,3 +1,4 @@
+<%@page import="cn.jsy.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -59,12 +60,13 @@ $(document).ready(function(){
       <ul class="nav navbar-nav navbar-right">
         <li class="active" ><a href="#" >喵の客服主页<span class="sr-only">Now choose</span></a></li>
         <%if(request.getParameter("username")!=null){ 
-        	  out.print("<li><a href='#' style='color:#fff'>"+"Welcome,"+request.getParameter("username")+"</a></li>");
+        	  out.print("<li><a href='#' style='color:#fff'>"+"喵,"+"<span>"+request.getParameter("username")+"</span>"+"</a></li>");
         }
         else{
         out.print("<li><a href='./login.jsp' style='color:#fff'>喵の登陆</a></li>");
         }  
         %>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -116,11 +118,15 @@ $(document).ready(function(){
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">喵喵喵   请问有喵在吗？</h4>
+          <% 
+    out.print("<h4>泥好呦!"+"<span style='display:block' id='userName'>"+request.getParameter("username")+"</span>"+"</h4>");
+ %>
+
       </div>
       <div class="modal-body">
         <div class="row">
@@ -146,13 +152,38 @@ $(document).ready(function(){
         </div>
       </div>
       <div class="modal-footer">
-              <button type="button" class="btn btn-default">喵!</button>
+              <button type="button" class="btn btn-default" id="miao_b">喵!</button>
       </div>
     </div>
   </div>
 </div>
 
+<script>
 
+
+$("#miao_b").click(function(){
+    
+	var inp=$("#msginput").val()
+	var username=$("#userName").text()
+	var date=new Date();
+	var nowtime=date.toLocaleDateString();
+	
+
+	//ajax ended
+    $("#msg-response").append("<div style='background:#fff;color:#36D9D6;font-style:italic;margin-right:5px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i class='glyphicon glyphicon-user'>你:</i></span></div>")
+ //   $("#msg-response").append("<p style=''></p>")
+    $("#msg-response").append(inp)
+
+    $("#msginput").val("");
+	
+	//ajax starting.....
+	$.post("./Add_comment.jsp",{context:inp,username:username,isstart:1,nowtime:nowtime});
+	
+	
+	
+
+});
+</script>
 
 <!-- 唤出对话框 -->
 <!--div id="footer" style="display:none">

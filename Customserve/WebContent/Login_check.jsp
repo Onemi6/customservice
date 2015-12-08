@@ -25,6 +25,7 @@
 	}
 	//验证成功，跳转到登陆成功页面
 	else{
+		
 		//放登陆成功页面的jsp
 		String REurl="./index.jsp?username="+namestr;
 		response.sendRedirect(REurl);
