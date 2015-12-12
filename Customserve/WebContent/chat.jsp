@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+    pageEncoding="utf-8" import="java.util.*,cn.jsy.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -146,8 +146,20 @@
  				 </div>
  			 <div class="panel-body">
   				  <ul>
-  				    <li>喵</li>
-  				    <li>喵</li>
+  				  <% 
+                  List<String> con=(List<String>)Conversion.getcontext(); 	
+  				 List<String> usr=(List<String>)Conversion.getusrname(); 	
+  				 // out.print(con.toString());
+
+  				  if(con==null||con.size()<1){  					  
+  					out.print("<li>"+"没有数据"+"</li>") ;
+  				  }else{
+  					  for(int i=0;i<con.size();i++){
+  						out.print("<li><a href='#' data-toggle='modal' data-target='#chatwindow'>"+(String)usr.get(i)+"说："+(String)con.get(i)+"</a></li>");
+  					  }					
+					}  		
+
+  				  %>
   				  </ul>  				  
  			 </div>
      		</div>
@@ -155,7 +167,47 @@
 	</div>
 </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <% 
+    out.print("<h4>泥好呦!"+"<span style='display:block' id='userName'>"+request.getParameter("username")+"</span>"+"</h4>");
+ %>
+
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-xs-7">
+        		<h5><b>欢迎光临喵の客服 人工服务</b></h5>
+        	</div>
+        </div>
+        <div id="msgbox" style="font-size:12px">
+          <div id="msgblock" style="background:#FFF;height:120px;border:1px solid #CCCCCC;overflow-y:auto;resize:vertical">
+          	<div id="msg-response" style="margin-top:20px;margin-right:30px;padding-top:7px;background:#BFE9F9">
+          	<div style="color:#99BE7B;font-style:italic;margin-right:5px;padding:2px;margin-top:-25px;font-size:12px;font-weight:bold">
+          	 	<span title="miao"   role="button">
+          	 	<i class="glyphicon glyphicon-user">&nbsp;首席喵客服:</i>
+          	 	</span>
+          	</div>
+          	    首席喵喵顾问为您服务 请输入你想要知道的事喵~~~
+          	</div>
+          </div>
+        </div>
+        <!-- 输入框 -->
+        <div id="textinput" style="position:relative;margin-top:25px;resize:vertical">
+           <textarea id="msginput" style="border:1px solid #CCCCCC;outline:none;width:100%" row="4" name="msginput" placeholder="有什么问题要问喵 就写这里(爪子" hkid="msginput"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="miao_b">喵!</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

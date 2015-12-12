@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="C:/Users/A450V/workspace/dbtest/lib2/mysql-connector-java-5.1.22-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/A450V/workspace/Gdemo/WebContent/WEB-INF/lib/mysql-connector-java-5.1.22-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/A450V/workspace/Customserve/WebContent/WEB-INF/lib/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/A450V/workspace/Customserve/WebContent/WEB-INF/lib/gson-2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

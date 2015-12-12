@@ -111,13 +111,13 @@ $(document).ready(function(){
 
 <!--底部咨询按钮  -->
 <div id="hidefoot">
-<a href="#" class="btn" style="bottom:10px;right:5px;position:fixed" data-toggle="modal" data-target="#myModal">
+<a href="#" class="btn" style="bottom:10px;right:5px;position:fixed" data-toggle="modal" data-target="#chatwindow">
 <img src="./Buttom_miao.jpg" alt="喵嗷~~~~~" class="img-thumbnail">
 </a>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="chatwindow"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -169,7 +169,6 @@ $("#miao_b").click(function(){
 	var nowtime=date.toLocaleDateString();
 	
 
-	//ajax ended
     $("#msg-response").append("<div style='background:#fff;color:#36D9D6;font-style:italic;margin-right:5px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i class='glyphicon glyphicon-user'>你:</i></span></div>")
  //   $("#msg-response").append("<p style=''></p>")
     $("#msg-response").append(inp)
@@ -179,9 +178,6 @@ $("#miao_b").click(function(){
 	//ajax starting.....
 	$.post("./Add_comment.jsp",{context:inp,username:username,isstart:1,nowtime:nowtime});
 	
-	
-	
-
 });
 </script>
 
