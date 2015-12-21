@@ -17,7 +17,7 @@ public class DBConn {
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/customer service","root","");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/customer service?useUnicode=true&characterEncoding=UTF-8","root","");
         }
         catch(ClassNotFoundException error)
         {

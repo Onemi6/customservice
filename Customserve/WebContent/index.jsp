@@ -134,12 +134,12 @@ $(document).ready(function(){
         		<h5><b>欢迎光临喵の客服 人工服务</b></h5>
         	</div>
         </div>
-        <div id="msgbox" style="font-size:12px">
-          <div id="msgblock" style="background:#FFF;height:120px;border:1px solid #CCCCCC;overflow-y:auto;resize:vertical">
-          	<div id="msg-response" style="margin-top:20px;margin-right:30px;padding-top:7px;background:#BFE9F9">
+        <div id="msgbox" style="font-size:18px">
+          <div id="msgblock" style="background:#FFF;height:180px;border:1px solid #CCCCCC;overflow-y:auto;resize:vertical">
+          	<div id="msg-response" style="margin-top:20px;margin-right:30px;padding-top:7px;background:#fff">
           	<div style="color:#99BE7B;font-style:italic;margin-right:5px;padding:2px;margin-top:-25px;font-size:12px;font-weight:bold">
-          	 	<span title="miao"   role="button">
-          	 	<i class="glyphicon glyphicon-user">&nbsp;首席喵客服:</i>
+          	 	<span title="miao" >
+          	 	<i style="margin-top:-3px">首席喵客服:</i>
           	 	</span>
           	</div>
           	    首席喵喵顾问为您服务 请输入你想要知道的事喵~~~
@@ -148,7 +148,7 @@ $(document).ready(function(){
         </div>
         <!-- 输入框 -->
         <div id="textinput" style="position:relative;margin-top:25px;resize:vertical">
-           <textarea id="msginput" style="border:1px solid #CCCCCC;outline:none;width:100%" row="4" name="msginput" placeholder="有什么问题要问喵 就写这里(爪子" hkid="msginput"></textarea>
+           <textarea id="msginput" style="border:1px solid #CCCCCC;outline:none;width:100%" row="8" name="msginput" placeholder="有什么问题要问喵 就写这里(爪子" hkid="msginput"></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -160,6 +160,31 @@ $(document).ready(function(){
 
 <script>
 
+setInterval(function(){
+	  getResponse();	
+	  
+},1000);
+
+//获取Admin 
+function getResponse(){
+	var username=$("#userName").text()
+	
+	$.post("./src/controller.jsp",{workername:"admin",username:username},function(data){
+		//for each thr arraylist
+		//alert(data);
+		//Travelsal the JSON data
+         $.each(JSON.parse(data),function(k,v){
+        	 if(k=="con"){
+        		   $("#msg-response").append("<div style='width:100%;background:#fff;color:#99BE7B;font-style:italic;margin-left:2px;padding:2px;font-size:12px;font-weight:bold'><span title='admin'><i style='margin-top:-5px'>首席喵客服:</i></span></div>");
+        		    $("#msg-response").append(v[0]);
+        	 }
+        	 else if(k=="conid"){
+        		 var conid=v[0];
+        	 }
+         });
+
+	});
+}
 
 $("#miao_b").click(function(){
     
@@ -169,9 +194,9 @@ $("#miao_b").click(function(){
 	var nowtime=date.toLocaleDateString();
 	
 
-    $("#msg-response").append("<div style='background:#fff;color:#36D9D6;font-style:italic;margin-right:5px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i class='glyphicon glyphicon-user'>你:</i></span></div>")
+    $("#msg-response").append("<div style='width:100%;background:#fff;color:#36D9D6;font-style:italic;margin-left:2px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i style='margin-top:-5px'>你:</i></span></div>")
  //   $("#msg-response").append("<p style=''></p>")
-    $("#msg-response").append(inp)
+    $("#msg-response").append(inp);
 
     $("#msginput").val("");
 	

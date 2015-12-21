@@ -350,7 +350,6 @@
   						out.print("<li><a href='javascript:void(0);' class='Mo_link' rel1="+(String)usr.get(i)+" rel2="+(String)con.get(i)+" rel3="+(Integer)conid.get(i)+">"+(String)usr.get(i)+"说："+(String)con.get(i)+"</a></li>");
   					  }					
 					}  		
-
   				  %>
   				  </ul>  				  
  			 </div>
@@ -376,11 +375,11 @@
         		<h5><b>开启你和用户的心灵对话吧喵~</b></h5>
         	</div>
         </div>
-        <div id="msgbox" style="font-size:12px" class="msgbox">
-          <div id="msgblock" style="background:#FFF;height:120px;border:1px solid #CCCCCC;overflow-y:auto;resize:vertical" class="msgblock">
-          	<div id="msg-response" style="margin-top:20px;margin-right:30px;padding-top:7px;background:#BFE9F9" class="msg-response">
-          	<div style="color:#99BE7B;font-style:italic;margin-right:5px;padding:2px;margin-top:-25px;font-size:12px;font-weight:bold" class="msg-avatar">
-          	 	<span title="miao"   role="button" class="miao">
+        <div id="msgbox" style="font-size:18px">
+          <div id="msgblock" style="background:#FFF;height:180px;border:1px solid #CCCCCC;overflow-y:auto;resize:vertical">
+          	<div id="msg-response" style="margin-top:20px;margin-right:30px;padding-top:7px;background:#fff">
+          	<div style="color:#99BE7B;font-style:italic;margin-right:5px;padding:2px;margin-top:-25px;font-size:12px;font-weight:bold">
+          	 	<span title="miao"   class="miao">
           	 	<i class="glyphicon glyphicon-user"></i><span class="username"></span>
           	 	</span>
           	</div>
@@ -402,19 +401,7 @@
 </div>
 <script>
    //右侧挂件的JS code Strat here.....
-//Modal.js 带参构造
 
-   $(".Mo_link").click(function(){
-	   var conname=$(this).attr('rel1');
-	   var context=$(this).attr('rel2');
-	   var conid=$(this).attr('rel3');
-	//   alert(context);
-	   
-	   $("#chatwindow").attr("rel",conid);
-	   $(".username").html(conname);
-	   $(".context").html(context);
-	   $("#chatwindow").modal();
-   });
    
    //获得msginput输入      post给到数据库   update数据表
    //Modal Button Click Function
@@ -423,34 +410,80 @@
 		var inp=$("#msginput").val();
 		//获得chatwindow中的ID号
 		var conid=$("#chatwindow").attr('rel');
-	    $("#msg-response").append("<div style='background:#fff;color:#36D9D6;font-style:italic;margin-right:5px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i class='glyphicon glyphicon-user'>你:</i></span></div>")
+		
+		var date=new Date();
+		var nowtime=date.toLocaleDateString();
+		
+	    $("#msg-response").append("<div id='mychat' style='with:100%;background:#fff;color:#36D9D6;font-style:italic;margin-left:2px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i style='margin-top:-5px'>你:</i></span></div>")
 	 //   $("#msg-response").append("<p style=''></p>")
-	    $("#msg-response").append(inp);
+	    $("#msg-response").append("<div id='chatde'>"+inp+"</div>");
 
 	    $("#msginput").val("");
 		
 		//ajax starting.....
-        $.post("./src/Update_con.jsp",{conid:conid,workname:"admin",isstart:0});
-				
+        $.post("./src/Update_con.jsp",{conid:conid,workername:"admin",isstart:0});
+        $.post("./Add_comment.jsp",{conid:conid,workername:"admin",isstart:0,context:inp,nowtime:nowtime});				
 	});
    //AJAX 轮询操作
+   
     setInterval(function(){
     	requestdata();
-    },5000);
-   
+    	
+    },3000);
+
    //向服务器请求最新的三列信息
    function requestdata(){
 	   $.post("./src/conversion.jsp",function(data){
-		 //alert(data);
-		   $.each(data,function(key,value){
+		//alert(data);
+			 //先清空.panel-ul里的所有Elem
+			 $(".panel-ul").empty();
+			// var obj=jQuery.parseJson(data);
+			 
+		   $.each(data,function(k,v){
+
+			//console.log(v);
 			   //remark:这里的value是ArrayList类型
-			       //先清空.panel-ul里的所有Elem
-			   $(".panel-ul").empty();
 		    	   //在全部装上
-		       $(".panel-ul").append("<li><a href='javascript:void(0);' class='Mo_link' rel1="+value[2]+" rel2="+value[1]+" rel3="+value[0]+">"+value[2]+"说："+value[1]+"</a></li>");
+		       $(".panel-ul").append("<li><a href='#' class='Mo_link' rel1="+v[2]+" rel2="+v[1]+" rel3="+v[0]+">"+v[2]+"说："+v[1]+"</a></li>");		 
+			  // $("#chatwindow").modal();
+			  
+		//Alert Problem:The tag was added after the page loads ,Therefore,The link would be fired after the page first load. 
+	     //And we do following methods to SOLVE this problem
+			   $(".Mo_link").click(function(){
+				   var conname=$(this).attr('rel1');
+				   var context=$(this).attr('rel2');
+				   var conid=$(this).attr('rel3');
+				//   alert(context);
+				   	   $("#mychat").empty();
+				   	   $("#chatde").empty();
+				   $("#chatwindow").attr("rel",conid);
+				   $(".username").html(conname);
+				   $(".context").html(context);
+				   $("#chatwindow").modal();
+			   });  	     				
 		   });
-	   });
+	   },"json");
+
+
    }
+
+   
+ //Modal.js 带参构造
+
+   $(".Mo_link").click(function(){
+	   
+	   var conname=$(this).attr('rel1');
+	   var context=$(this).attr('rel2');
+	   var conid=$(this).attr('rel3');
+	//   alert(context);
+				   	   $("#mychat").empty();
+				   	   $("#chatde").empty();
+	   $("#chatwindow").attr("rel",conid);
+	   $(".username").html(conname);
+	   $(".context").html(context);
+	   $("#chatwindow").modal();
+   });  
+   
 
 </script>
 </body>

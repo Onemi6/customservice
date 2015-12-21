@@ -3,16 +3,21 @@
     pageEncoding="utf-8"%>
  <%@ page language="java" import="java.util.*,java.io.*,com.google.gson.*"%>
  <%
- 
-     Map<String,List<String>> res=new HashMap<String,List<String>>();
+ List<List<String>> finallist=new ArrayList<List<String>>();
+ Map<Integer,List<String>> finalmap=new HashMap<Integer,List<String>>();
  	 List<String> resarray=new ArrayList<String>();
  	 List<String> con=(List<String>)Conversion.getcontext(); 	
 	 List<String> usr=(List<String>)Conversion.getusrname(); 
 	 List<Integer> conid=(List<Integer>)Conversion.getconid(); 	
   //   Conversion conV=new Conversion();
      
-	 for(int i=0;i<con.size();i++){
-		 String id=conid.get(i).toString();		 
+
+	 for(int i=0;i<conid.size();i++){
+		 
+	     List<String> res=new ArrayList<String>();
+		 
+		 String id=conid.get(i).toString();	
+		// out.print(resarray.toString());	 
 	  //动态Arraylist 来获得需要的数据结构
 	       /*	       
 	       DATA-TYPE(Finally Is Json):
@@ -24,17 +29,23 @@
 			resarray.set(0,id);
 			resarray.set(1,con.get(i));
 			resarray.set(2,usr.get(i));
+		//	out.print("1");
 		 }
 		 else{
 			 //Add
-			 resarray.add(id);
-			 resarray.add(con.get(i));
-			 resarray.add(usr.get(i));
+			 resarray.add(0,id);
+			 resarray.add(1,con.get(i));
+			 resarray.add(2,usr.get(i));
+		  //   out.print("0");
 		 }
-		 res.put(conid.get(i).toString(), resarray);	 
+		 res.addAll(resarray);
+	//	 finallist.add(res);
+		 finalmap.put(i, res);
+	 //    out.print(res.toString());
 	 }
-//转成json对象 发辫AJAX取值
+	//out.print(finalmap.toString());
+//转成json对象 发给AJAX取值
 	 Gson gson = new GsonBuilder().create();
-	 gson.toJson(res);
-	 out.print(res);	 	 
+	 String json=gson.toJson(finalmap);
+	 out.print(json);	 	 
  %>
