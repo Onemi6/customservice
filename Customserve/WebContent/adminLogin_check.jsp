@@ -3,16 +3,21 @@
     pageEncoding="utf-8"%>
  <%@ page language="java" import="java.sql.*,java.io.*,java.util.*"%>
 <%
+
 	String namestr=request.getParameter("txtname");
 	String passwordstr=request.getParameter("txtpassword");
-	DBConn.GetConnection();
-	Connection con=DBConn.GetConnection();
-	String sql = "select * from cs_user";
-	Statement sta=(Statement)con.createStatement();
-	ResultSet rs=sta.executeQuery(sql);
+
 	int flag=0;
+	//String test=null;
+	//String namestr="admin";
+	//String passwordstr="admin";
+	Connection con=DBConn.GetConnection();
+	String sql = "SELECT * FROM cs_worker";
+	PreparedStatement st=con.prepareStatement(sql);
+	ResultSet rs=st.executeQuery();
 	while(rs.next()){
-		if(rs.getString(2).equals(namestr)&&rs.getString(3).equals(passwordstr)){
+	//	test=rs.getString("password");
+		if(rs.getString("workname").equals("admin") && rs.getString("password").equals("admin")){
 			flag=1;
 			//获得登陆成功用户
 			break;
@@ -20,13 +25,15 @@
 	}
 	//验证失败，即没有此人或者密码错误
 	if(flag==0){
-		response.sendRedirect("login.jsp");
+		//out.print(test);
+		response.sendRedirect("./adminlogin.jsp");
 	}
 	//验证成功，跳转到登陆成功页面
-	else{
+	else if(flag==1){
 		
 		//放登陆成功页面的jsp
-		String REurl="./index.jsp?username="+namestr;
+		String REurl="./admin.jsp";
+		session.setAttribute("workername", namestr);
 		response.sendRedirect(REurl);
 	}
 %>

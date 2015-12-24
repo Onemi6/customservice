@@ -2,6 +2,10 @@
     pageEncoding="utf-8"%>
     <%@page import="cn.jsy.*"%>
     <%@page import="java.util.*,java.io.*,com.google.gson.*"%>
+    <%
+        if(session.getAttribute("workername").equals("admin")){
+        	
+    %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +13,8 @@
 <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="./js/Chart/Chart.js"></script>
+<script src="./js/Jquerysession/jquery.session.js"></script>
        <style>
             .line-legend {
               list-style: none;
@@ -104,7 +108,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li ><a href="#" style="color:#19ADEC">喵の配置</a></li>
         <li class="active" ><a href="#" >喵の客服</a></li>
-        <li><a href="#" style="color:#19ADEC">喵</a></li>
+        <li><a href="./adminlogin.jsp" style="color:#19ADEC"><%=session.getAttribute("workername") %></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -150,11 +154,25 @@
 		<div class="col-sm-8 col-md-9" style="paddig-bottom:10px;margin-top:20px">
 		<h4 style="color:#19ADEC">客服访问量统计：</h4>
 		<br/>
-           <canvas id="line-chart" >           
+           <canvas id="line-chart">           
             
            </canvas>
-<div id="line-legend"></div>
+<% 
+           Cadmin ca=new Cadmin();
+           ca.getdata();
+           ca.getTodaydata();
+out.print("<div id='line-legend' "+" reltg="+ca.getTgnum()+" reltl="+ca.getTlnum()+" reltt="+ca.getTtnum()+" relag="+ca.getGnum()+" relat="+ca.getLnum()+" relal="+ca.getLnum()+"></div>");
+%>
+
+
+
         <script>
+
+
+
+
+   
+
         /**
          * 创建chartjs图表
          *
@@ -287,6 +305,22 @@
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100);
         };
+        
+        //获得总数据
+
+
+
+       
+
+       //获得今日数据
+       var gettodaydata=function(){
+    	   $.post("./src/cadmin.jsp",{type:"today"},function(data){
+			   return JSON.parse(data);
+    	   });
+       }
+
+
+    
 
         // 折线图id
         var chart_canvas_id = 'line-chart';
@@ -304,7 +338,7 @@
                 pointStrokeColor : "#fff",
                 pointHighlightFill : "#fff",
                 pointHighlightStroke : "rgba(220,220,220,1)",
-                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                data : [$("#line-legend").attr("reltt"),$("#line-legend").attr("reltg"),$("#line-legend").attr("reltl")]
             },
             {
                 label: "总访问量",
@@ -314,7 +348,7 @@
                 pointStrokeColor : "#fff",
                 pointHighlightFill : "#fff",
                 pointHighlightStroke : "rgba(151,187,205,1)",
-                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                data : [$("#line-legend").attr("relat"),$("#line-legend").attr("relag"),$("#line-legend").attr("relal")]
             }
         ];
 
@@ -488,3 +522,11 @@
 </script>
 </body>
 </html>
+<%
+        }
+        else{
+           response.sendRedirect("./adminlogin.jsp");
+        }
+        	%>
+        	
+

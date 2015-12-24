@@ -138,13 +138,5 @@ public class Conversion {
 		this.conid = conid;
 	}
 	
-	public static void removeChat(String username) throws SQLException{
-		Connection conn=DBConn.GetConnection();
-		PreparedStatement st=conn.prepareStatement("UPDATE cs_conversion SET isstart='-1' WHERE username=? AND isstart=?");
-		st.setString(1, username);
-		st.setInt(2, 0);
-        st.executeUpdate();
-		st.close();
-		conn.close();		
-	}
+	
 }
