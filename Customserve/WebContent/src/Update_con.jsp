@@ -9,9 +9,21 @@
  
    String isstart=request.getParameter("isstart");
    
-   
+   String username=request.getParameter("username"); 
    //Connection Start.....
    Connection conn=DBConn.GetConnection();
+   
+   if(conid==null){
+		PreparedStatement st=conn.prepareStatement("UPDATE cs_conversion SET workername=?,isstart=? WHERE username=?");
+		st.setString(1, Workername);
+		st.setString(2, isstart);
+ 		st.setString(3, username);
+	 	st.executeUpdate();		
+	  	st.close();
+	  	conn.close();      
+   }
+   
+   else{
    
    //如果存在从conid  减轻Database load
    if(Conversion.exist_con(conid)){
@@ -22,5 +34,6 @@
  	st.executeUpdate();		
   	st.close();
   	conn.close();
+   }
    }
  %>

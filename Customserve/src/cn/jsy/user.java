@@ -87,7 +87,7 @@ public static ArrayList<String> getWaiter() throws SQLException{
 	ResultSet rs=st.executeQuery();
 	while(rs.next()){
 		if(rs.getString("username").length()!=0){
-		//waiterArray.add(rs.getString("username"));
+
 				if(waiterArray.size()==0){
 					waiterArray.add(rs.getString("username"));
 				}
@@ -105,6 +105,43 @@ public static ArrayList<String> getWaiter() throws SQLException{
 	conn.close();
 	return waiterArray;
 }
+/**
+ * Ѕвсо
+ * @param zone
+ * @return
+ * @throws SQLException
+ */
+public static ArrayList<String> getWaiter_zone(String zone) throws SQLException{
+	ArrayList<String> waiterArray=new ArrayList<String>();
+	  Connection conn=DBConn.GetConnection();
+	PreparedStatement st=conn.prepareStatement("SELECT * FROM cs_conversion LEFT JOIN cs_user ON cs_user.username=cs_conversion.username WHERE cs_conversion.isstart=? AND cs_user.zone=? ");
+	st.setInt(1, 1);
+	st.setString(2, zone);
+	
+	ResultSet rs=st.executeQuery();
+	while(rs.next()){
+		if(rs.getString("username").length()!=0){
+
+				if(waiterArray.size()==0){
+					waiterArray.add(rs.getString("username"));
+				}
+				else{
+         for(int i=0;i<waiterArray.size();i++){
+        	 if(!rs.getString("username").equals(waiterArray.get(i).toString())){
+        		 waiterArray.add(rs.getString("username"));
+        	 }
+         }
+				}
+		}
+	}			
+	rs.close();
+	st.close();
+	conn.close();
+	return waiterArray;
+}
+
+
+
 
 /**
  *  Get passed User name;
@@ -135,7 +172,34 @@ public static ArrayList<String> getPasser() throws SQLException{
 		conn.close();
 	  return passerArray;
 }
-  
+ 
+
+public static ArrayList<String> getPasser_zone(String zone) throws SQLException{
+	ArrayList<String> passerArray=new ArrayList<String>();
+	  Connection conn=DBConn.GetConnection();
+		PreparedStatement st=conn.prepareStatement("SELECT * FROM cs_conversion LEFT JOIN cs_user ON cs_user.username=cs_conversion.username WHERE cs_conversion.isstart=? AND cs_user.zone=? ");
+	   st.setInt(1, 0);
+	   st.setString(2, zone);
+	   
+		ResultSet rs=st.executeQuery();
+		while(rs.next()){
+			if(rs.getString("username").length()!=0){
+			if(passerArray.size()==0){
+				passerArray.add(rs.getString("username"));
+			}
+
+			else{
+							if(!passerArray.contains(rs.getString("username"))){
+								passerArray.add(rs.getString("username"));
+						}
+				}
+			}
+						}
+		rs.close();
+		st.close();
+		conn.close();
+	  return passerArray;
+}
   
   
 }

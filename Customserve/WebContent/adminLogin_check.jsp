@@ -17,9 +17,11 @@
 	ResultSet rs=st.executeQuery();
 	while(rs.next()){
 	//	test=rs.getString("password");
-		if(rs.getString("workname").equals("admin") && rs.getString("password").equals("admin")){
+		if(rs.getString("workname").equals(namestr) && rs.getString("password").equals(passwordstr)){
 			flag=1;
 			//获得登陆成功用户
+			 //设置SESSION 获取管理员的faction
+			session.setAttribute("workername", rs.getString("majorin"));
 			break;
 		}
 	}
@@ -33,7 +35,7 @@
 		
 		//放登陆成功页面的jsp
 		String REurl="./admin.jsp";
-		session.setAttribute("workername", namestr);
+		session.setAttribute("worker", namestr);
 		response.sendRedirect(REurl);
 	}
 %>

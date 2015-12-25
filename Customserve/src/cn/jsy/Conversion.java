@@ -44,6 +44,32 @@ public class Conversion {
 	}
 
 	/**
+	 *解耦  特定专区 
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<String> getcontext_zone(String zone) throws SQLException{
+		
+		
+		Connection conn=DBConn.GetConnection();
+		PreparedStatement st=conn.prepareStatement("SELECT * FROM cs_conversion LEFT JOIN cs_user ON cs_user.username=cs_conversion.username WHERE cs_conversion.isstart=? AND cs_user.zone=? ORDER BY cs_conversion.conid  LIMIT 3");
+		st.setInt(1, 1);
+		st.setString(2, zone);
+		
+		ResultSet rs=st.executeQuery();
+		List<String> con=new ArrayList<String>();
+		while(rs.next()){
+				context=rs.getString("context");	
+				con.add(context);				
+		}
+		st.close();
+		conn.close();
+		return con;
+
+	}
+	
+	
+	/**
 	 * 
 	 * @return
 	 * @throws SQLException
@@ -65,7 +91,24 @@ public class Conversion {
 		return con;
 	}
 	
-	
+	public static List<String> getusrname_zone(String zone) throws SQLException{
+		
+		
+		Connection conn=DBConn.GetConnection();
+		PreparedStatement st=conn.prepareStatement("SELECT * FROM cs_conversion LEFT JOIN cs_user ON cs_user.username=cs_conversion.username WHERE cs_conversion.isstart=? AND cs_user.zone=? ORDER BY cs_conversion.conid  LIMIT 3"); 
+		st.setInt(1, 1);
+		st.setString(2, zone);
+		
+		ResultSet rs=st.executeQuery();
+		List<String> con=new ArrayList<String>();
+		while(rs.next()){
+				username=rs.getString("username");	
+				con.add(username);				
+		}
+		st.close();
+		conn.close();
+		return con;
+	}
 	
 	/**
 	 * 
@@ -88,6 +131,27 @@ public class Conversion {
 		conn.close();
 		return con;
 	}
+	
+	public static List<Integer> getconid_zone(String zone) throws SQLException{
+		
+		
+		Connection conn=DBConn.GetConnection();
+		PreparedStatement st=conn.prepareStatement("SELECT * FROM cs_conversion LEFT JOIN cs_user ON cs_user.username=cs_conversion.username WHERE cs_conversion.isstart=? AND cs_user.zone=? ORDER BY cs_conversion.conid  LIMIT 3"); 
+		st.setInt(1, 1);
+		st.setString(2, zone);
+		
+		ResultSet rs=st.executeQuery();
+		List<Integer> con=new ArrayList<Integer>();
+		while(rs.next()){
+				conid=rs.getInt("conid");	
+				con.add(conid);				
+		}
+		st.close();
+		conn.close();
+		return con;
+	}
+	
+	
 	/**
 	 * 判断是否存在conid
 	 * @param conid
@@ -137,7 +201,11 @@ public class Conversion {
 	public void setConid(int conid) {
 		this.conid = conid;
 	}
-	
+	/**
+	 * 
+	 * @param username
+	 * @throws SQLException
+	 */
 	public static void removeChat(String username) throws SQLException{
 		Connection conn=DBConn.GetConnection();
 		PreparedStatement st=conn.prepareStatement("UPDATE cs_conversion SET isstart='-1' WHERE username=? AND isstart=?");
@@ -147,4 +215,35 @@ public class Conversion {
 		st.close();
 		conn.close();		
 	}
+	/**
+	 * 
+	 * @param username
+	 * @throws SQLException
+	 */
+	public static void ignoreChat(String username) throws SQLException{
+		Connection con=DBConn.GetConnection();
+		PreparedStatement st=con.prepareStatement("UPDATE cs_conversion SET isstart='0' WHERE username=? AND isstart=?");
+		st.setString(1, username);
+		st.setInt(2, 1);
+		st.executeUpdate();
+		st.close();
+		con.close();
+		
+	}
+	
+	public static HashMap<Integer,String> chatHistory(String username) throws SQLException{
+	    
+		HashMap<Integer,String> map=new HashMap<Integer,String>();
+		Connection con=DBConn.GetConnection();
+		PreparedStatement st=con.prepareStatement("SELECT conid,context FROM cs_conversion WHERE username=? AND isstart=?");
+		st.setString(1, username);
+		st.setInt(2, 1);
+		ResultSet rs=st.executeQuery();
+		while(rs.next()){
+			map.put(rs.getInt("conid"), rs.getString("context"));			
+		}
+		return map;
+	}
+	
+	
 }

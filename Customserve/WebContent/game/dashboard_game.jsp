@@ -2,19 +2,17 @@
     pageEncoding="utf-8"%>
     <%@page import="cn.jsy.*"%>
     <%@page import="java.util.*,java.io.*,com.google.gson.*"%>
-    <%
-        if(session.getAttribute("workername").equals("admin")){
-        	
-    %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    
+    
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="./js/Chart/Chart.js"></script>
-<script src="./js/Jquerysession/jquery.session.js"></script>
+<script src="../js/Chart/Chart.js"></script>
+<script src="../js/Jquerysession/jquery.session.js"></script>
        <style>
             .line-legend {
               list-style: none;
@@ -106,9 +104,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li ><a href="#" style="color:#19ADEC">喵の配置</a></li>
         <li class="active" ><a href="#" >喵の客服</a></li>
-        <li><a href="./adminlogin.jsp" style="color:#19ADEC"><%=session.getAttribute("workername") %></a></li>
+        <li><a href="../adminlogin.jsp" style="color:#19ADEC"><%=session.getAttribute("worker") %></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -123,18 +120,13 @@
 				<ul id="side-bar" class="nav nav-stack">
 				 		<li>
 
-				 			<a href="./admin.jsp" style="color:#19ADEC">
+				 			<a href="#" style="color:#19ADEC">
 				 			  <span class="glyphicon glyphicon-signal"></span>&nbsp;仪表盘
 				 			</a>
 				 		</li>
 				 		<li>
-				 			<a href="./chat.jsp" style="color:#19ADEC">
+				 			<a href="./chat_game.jsp" style="color:#19ADEC">
 				 			  <span class="glyphicon glyphicon-comment"></span>&nbsp;聊天界面
-				 			</a>
-				 		</li>
-				 		<li>
-				 			<a href="./config.jsp" style="color:#19ADEC">
-				 			  <span class="glyphicon glyphicon-cog"></span>&nbsp;常用设置
 				 			</a>
 				 		</li>
 				</ul>
@@ -313,12 +305,13 @@ out.print("<div id='line-legend' "+" reltg="+ca.getTgnum()+" reltl="+ca.getTlnum
        
 
        //获得今日数据
+       /*
        var gettodaydata=function(){
-    	   $.post("./src/cadmin.jsp",{type:"today"},function(data){
+    	   $.post("../src/cadmin.jsp",{type:"today"},function(data){
 			   return JSON.parse(data);
     	   });
        }
-
+*/
 
     
 
@@ -371,9 +364,9 @@ out.print("<div id='line-legend' "+" reltg="+ca.getTgnum()+" reltl="+ca.getTlnum
  			 <div class="panel-body">
   				  <ul class="panel-ul">
   				  <% 
-                  List<String> con=(List<String>)Conversion.getcontext(); 	
-  				 List<String> usr=(List<String>)Conversion.getusrname(); 	
-  				 List<Integer> conid=(List<Integer>)Conversion.getconid(); 	
+                  List<String> con=(List<String>)Conversion.getcontext_zone("game"); 	
+  				 List<String> usr=(List<String>)Conversion.getusrname_zone("game"); 	
+  				 List<Integer> conid=(List<Integer>)Conversion.getconid_zone("game"); 	
   				 // out.print(con.toString());
 
   				  if(con==null||con.size()<1){  					  
@@ -455,8 +448,8 @@ out.print("<div id='line-legend' "+" reltg="+ca.getTgnum()+" reltl="+ca.getTlnum
 	    $("#msginput").val("");
 		
 		//ajax starting.....
-        $.post("./src/Update_con.jsp",{conid:conid,workername:"admin",isstart:0});
-        $.post("./Add_comment.jsp",{conid:conid,workername:"admin",isstart:0,context:inp,nowtime:nowtime});				
+        $.post("../src/Update_con.jsp",{conid:conid,workername:"admin",isstart:0});
+        $.post("../Add_comment.jsp",{conid:conid,workername:"admin",isstart:0,context:inp,nowtime:nowtime});				
 	});
    //AJAX 轮询操作
    
@@ -467,7 +460,7 @@ out.print("<div id='line-legend' "+" reltg="+ca.getTgnum()+" reltl="+ca.getTlnum
 
    //向服务器请求最新的三列信息
    function requestdata(){
-	   $.post("./src/conversion.jsp",function(data){
+	   $.post("../src/conversion.jsp",{zone:"game"},function(data){
 		//alert(data);
 			 //先清空.panel-ul里的所有Elem
 			 $(".panel-ul").empty();
@@ -522,17 +515,3 @@ out.print("<div id='line-legend' "+" reltg="+ca.getTgnum()+" reltl="+ca.getTlnum
 </script>
 </body>
 </html>
-<%
-        }
-        else if(session.getAttribute("workername").equals("game")){
-           response.sendRedirect("./game/dashboard_game.jsp");
-        }
-        else if(session.getAttribute("workername").equals("live")){
-        	response.sendRedirect("./live/dashboard_live.jsp");
-        }
-        else if(session.getAttribute("workername").equals("travel")){
-        	response.sendRedirect("./travel/dashboard_travel.jsp");
-        }
-        	%>
-        	
-

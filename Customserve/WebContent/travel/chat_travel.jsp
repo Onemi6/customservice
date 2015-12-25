@@ -7,7 +7,7 @@
 <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="./js/Chart/Chart.js"></script>
+<script src="../js/Chart/Chart.js"></script>
 <style>
   .line{
      background:#fff;
@@ -32,9 +32,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li ><a href="./config.jsp" style="color:#19ADEC">喵の配置</a></li>
         <li class="active" ><a href="#" >喵の客服</a></li>
-        <li><a href="./adminlogin.jsp" style="color:#19ADEC"><%=session.getAttribute("workername") %></a></li>
+        <li><a href="../adminlogin.jsp" style="color:#19ADEC"><%=session.getAttribute("worker") %></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -47,27 +46,23 @@
 		 <div id="navbar-default-sidebar-collapse" class="collapse navbar-collapse"  style="width:220px;position:relative;">
 				<ul id="side-bar" class="nav nav-stack">
 				 		<li>
-				 			<a href="./admin.jsp" style="color:#19ADEC">
+				 			<a href="./dashboard_travel.jsp" style="color:#19ADEC">
 				 			  <span class="glyphicon glyphicon-signal"></span>&nbsp;仪表盘
 				 			</a>
 				 		</li>
 				 		<li>
-				 			<a href="./chat.jsp" style="color:#19ADEC">
+				 			<a href="#" style="color:#19ADEC">
 				 			  <span class="glyphicon glyphicon-comment"></span>&nbsp;聊天界面
 				 			</a>
 				 		</li>
-				 		<li>
-				 			<a href="./config.jsp" style="color:#19ADEC">
-				 			  <span class="glyphicon glyphicon-cog"></span>&nbsp;常用设置
-				 			</a>
-				 		</li>
+
 				</ul>
 		</div>
  	</nav>
   </div>
 
 		 	 	<ol class="breadcrumb" style="width:280px">
-		 	 	 	<li><a href="./admin.jsp">首页</a></li>	
+		 	 	 	<li><a href="./dashboard_travel.jsp">首页</a></li>	
 		 	 	 	<li class="active">Now Chat</li>		 	 	 	
 		 	 	</ol>
 		 	 	
@@ -91,11 +86,9 @@
 		<div class="line " id="con">
 		<%  
 		//JSP CODE  START HERE.....
-		ArrayList<String> waitingUser=user.getWaiter();
+		ArrayList<String> waitingUser=user.getWaiter_zone("travel");
 
 		for(int i=0;i<waitingUser.size();i++){
-
-
 	
 			out.print("	<p style='margin-bottom:26px'><span class='glyphicon glyphicon-user' style='color:#BBB7B7'></span> &nbsp;&nbsp;"+waitingUser.get(i)+"<span class='badge' style='margin-left:60%;color:red;background:#fff;display:none'>new</span></p>");
 			out.print("<button class='btn btn-default' style='margin-left:85%;margin-top:-48px' id='callonchat' rel="+waitingUser.get(i)+"><span class='glyphicon glyphicon-earphone'></span></button>");
@@ -126,7 +119,7 @@
 		   
 		<div class="line " id="con2">
 				   <% 
-		   ArrayList<String> passer=user.getPasser();
+		   ArrayList<String> passer=user.getPasser_zone("travel");
 		   for(int j=0;j<passer.size();j++){
 			   out.print("  <p style='margin-bottom:26px'><span class='glyphicon glyphicon-user'></span>&nbsp;&nbsp;"+passer.get(j)+"<span class='badge' style='margin-left:60%;color:red;background:#fff;display:none'>new</span>");
 			   out.print("		  </p>");
@@ -148,9 +141,9 @@
  			 <div class="panel-body">
   				  <ul class="panel-ul">
   				  <% 
-                  List<String> con=(List<String>)Conversion.getcontext(); 	
-  				 List<String> usr=(List<String>)Conversion.getusrname(); 	
-  				 List<Integer> conid=(List<Integer>)Conversion.getconid(); 	
+                  List<String> con=(List<String>)Conversion.getcontext_zone("travel"); 	
+  				 List<String> usr=(List<String>)Conversion.getusrname_zone("travel"); 	
+  				 List<Integer> conid=(List<Integer>)Conversion.getconid_zone("travel"); 	
   				 // out.print(con.toString());
 
   				  if(con==null||con.size()<1){  					  
@@ -271,8 +264,8 @@
 
 		$("#msginputA").val("");
 		
-        $.post("./src/Update_con.jsp",{workername:"admin",isstart:0,username:username});
-        $.post("./Add_comment.jsp",{workername:"admin",isstart:0,context:inp,nowtime:nowtime});	
+        $.post("../src/Update_con.jsp",{workername:"admin",isstart:0,username:username});
+        $.post("../Add_comment.jsp",{workername:"admin",isstart:0,context:inp,nowtime:nowtime});	
    });
       
    
@@ -296,8 +289,8 @@
 	    $("#msginput").val("");
 		
 		//ajax starting.....
-        $.post("./src/Update_con.jsp",{conid:conid,workername:"admin",isstart:0});
-        $.post("./Add_comment.jsp",{conid:conid,workername:"admin",isstart:0,context:inp,nowtime:nowtime});				
+        $.post("../src/Update_con.jsp",{conid:conid,workername:"admin",isstart:0});
+        $.post("../Add_comment.jsp",{conid:conid,workername:"admin",isstart:0,context:inp,nowtime:nowtime});				
 	});
    
 
@@ -312,7 +305,7 @@
 
    //向服务器请求最新的三列信息
    function requestdata(){
-	   $.post("./src/conversion.jsp",function(data){
+	   $.post("../src/conversion.jsp",{zone:"travel"},function(data){
 		//alert(data);
 			 //先清空.panel-ul里的所有Elem
 			 $(".panel-ul").empty();
@@ -392,7 +385,7 @@
   		
         var username=$(this).attr('rel');
   		
-  		$.post("./src/chatControl.jsp",{username:username,method:"history"},function(data){
+  		$.post("../src/chatControl.jsp",{username:username,method:"history"},function(data){
 				$("#msg-responseA").empty();
   			$.each(JSON.parse(data),function(k,v){
   			    $("#msg-responseA").append("<div id='mychat' style='with:100%;background:#fff;color:#99BE7B;font-style:italic;margin-left:2px;padding:2px;font-size:12px;font-weight:bold'><span title='custom'><i style='margin-top:-5px'>"+username+":</i></span></div>")
@@ -407,13 +400,13 @@
    //移去已结束用户
    $("#removechat").click(function(){
 	   var username=$(this).attr('rel');
-	   $.post("./src/chatControl.jsp",{username:username,method:"update"});
+	   $.post("../src/chatControl.jsp",{username:username,method:"update"});
 	  location.reload();
    });
    //忽视正在进行的对话
    $("#ignorechat").click(function(){
 	   var username=$(this).attr('rel');
-	   $.post("./src/chatControl.jsp",{username:username,method:"ignore"});
+	   $.post("../src/chatControl.jsp",{username:username,method:"ignore"});
 	   location.reload();
    });
 </script>
